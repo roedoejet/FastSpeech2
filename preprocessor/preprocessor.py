@@ -4,7 +4,7 @@ import json
 from collections import defaultdict
 from text import text_to_sequence
 
-import tgt
+from pympi import TextGrid
 import librosa
 import numpy as np
 import pyworld as pw
@@ -225,9 +225,9 @@ class Preprocessor:
         )
 
         # Get alignments
-        textgrid = tgt.io.read_textgrid(tg_path)
+        textgrid = TextGrid(tg_path)
         phone, duration, start, end = self.get_alignment(
-            textgrid.get_tier_by_name("phones")
+            textgrid.get_tier("phones")
         )
         text = "{" + " ".join(phone) + "}"
         feats = text_to_sequence(
@@ -326,16 +326,16 @@ class Preprocessor:
         )
 
     def get_alignment(self, tier):
-        sil_phones = ["sil", "sp", "spn"]
+        sil_phones = ["sil", "sp", "spn", ""]
 
         phones = []
         durations = []
         start_time = 0
         end_time = 0
         end_idx = 0
-        for t in tier._objects:
-            s, e, p = t.start_time, t.end_time, t.text
-
+        
+        for t in tier.intervals:
+            s, e, p = t
             # Trim leading silences
             if phones == []:
                 if p in sil_phones:
@@ -350,6 +350,8 @@ class Preprocessor:
                 end_idx = len(phones)
             else:
                 # For silent phones
+                if p == "":
+                    p = "sp"
                 phones.append(p)
 
             durations.append(

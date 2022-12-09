@@ -46,7 +46,7 @@ for lang in MAPPINGS.keys():
         chars = MAPPINGS[lang]["ipa"]._transducers[-1].mapping.mapping
     else:
         chars = MAPPINGS[lang]["ipa"].mapping.mapping
-    IPA[lang] = [normalize('NFC', c['out']) for c in chars]
+    IPA[lang] = [normalize('NFC', c['out'].strip()) for c in chars]
 
 TOKENIZERS = {
     k: RegexpTokenizer("|".join(sorted(v, key=lambda x: len(x), reverse=True)))
@@ -78,3 +78,4 @@ CHARS = (
     + _pinyin   # NOTE: I've left this in as it's needed for the pretrained models from the original repo, but it's not necessary for training your own models (including LJ)
     + _silences
 )
+# TODO: If using your own language, set CHARS = SYMBOLS['your_language']
