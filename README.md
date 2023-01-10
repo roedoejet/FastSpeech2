@@ -2,6 +2,8 @@
 
 This fork of ming024's implementation was used for my M.Sc. Speech & Language Processing dissertation, "Low Resource Speech Synthesis". The differences are outlined below.
 
+If you are looking for checkpoints for the LJ models discussed in our [ACL2022 paper](https://aclanthology.org/2022.acl-long.507/), please visit this repo: https://github.com/roedoejet/FastSpeech2_ACL2022_reproducibility (unfortunately GitHub doesn't allow Git LFS on forks, which is why I was forced to use a separate repo). If you use this or do more research I'd be really excited to hear about it, so please [cite us](#citation) and [get in touch](https://aidanpine.ca)! 
+
 # Changes from ming024
 - Model allows removal of energy variance adaptor, postnet and optional depthwise separable convolutions similar to LightSpeech (Luo et. al. 2021). Changes can be made in `config/*/model.yaml`
 - Model allows for one-hot learnable language embeddings. Changes can be made in `config/*/model.yaml`
