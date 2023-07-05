@@ -114,22 +114,14 @@ def main(args, configs):
                     losses = [l.item() for l in losses]
                     message1 = "Step {}/{}, ".format(step, total_step)
                     if model_config["variance_predictor"]["use_energy_predictor"]:
-                        if model_config["use_spe_loss"]:
-                            message2 = "Total Loss: {:.4f}, Mel Loss: {:.4f}, Mel PostNet Loss: {:.4f}, Pitch Loss: {:.4f}, Energy Loss: {:.4f}, Duration Loss: {:.4f}, SPE Loss: {:.4f}".format(
-                                *losses
-                            )
-                        else:
-                            message2 = "Total Loss: {:.4f}, Mel Loss: {:.4f}, Mel PostNet Loss: {:.4f}, Pitch Loss: {:.4f}, Duration Loss: {:.4f}".format(
-                                *losses
-                            )
-                    elif model_config["use_spe_loss"]:
-                        message2 = "Total Loss: {:.4f}, Mel Loss: {:.4f}, Mel PostNet Loss: {:.4f}, Pitch Loss: {:.4f}, Duration Loss: {:.4f}, SPE Loss: {:.4f}".format(
+                        message2 = "Total Loss: {:.4f}, Mel Loss: {:.4f}, Mel PostNet Loss: {:.4f}, Pitch Loss: {:.4f}, Energy Loss: {:.4f}, Duration Loss: {:.4f}".format(
                             *losses
                         )
                     else:
-                        message2 = "Total Loss: {:.4f}, Mel Loss: {:.4f}, Mel PostNet Loss: {:.4f}, Pitch Loss: {:.4f}, Duration Loss: {:.4f}".format(
+                        message2 = "Total Loss: {:.4f}, Mel Loss: {:.4f}, Mel PostNet Loss: {:.4f}, Pitch Loss: {:.4f}, Energy Loss: {:.4f}, Duration Loss: {:.4f}".format(
                             *losses
                         )
+        
                     with open(os.path.join(train_log_path, "log.txt"), "a") as f:
                         f.write(message1 + message2 + "\n")
 
